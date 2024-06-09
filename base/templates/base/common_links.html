@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常用連結</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/homepage.css' %}">
+    <style>
+        .links-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .link-block, .iframe-block {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            width: calc(50% - 10px);
+            box-sizing: border-box;
+        }
+        .iframe-block iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+        }
+        .iframe-block p {
+            color: red;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div id="clock" class="nav-clock"></div>
+        <a href="{% url 'homepage' %}" class="nav-link">首頁</a>
+        <a href="{% url 'lobby' %}" class="nav-link">前往大廳</a>
+        <a href="{% url 'common_links' %}" class="nav-link">常用連結</a>
+        <a href="{% url 'contact' %}" class="nav-link">聯絡我們</a>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>常用連結</h1>
+        </header>
+        <main>
+            <div class="links-container">
+                <div class="iframe-block">
+                    <h2>嵌入式連結 - Google Maps</h2>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.086571817455!2d144.95754741531888!3d-37.81361167975182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf5773df16e3a54d0!2sFederation%20Square!5e0!3m2!1sen!2sau!4v1618311228823!5m2!1sen!2sau" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="iframe-block">
+                    <h2>嵌入式連結 - iFoodie</h2>
+                    <iframe src="https://open.spotify.com/embed/album/1ATL5GLyefJaxhQzSPVrLX" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    <p id="ifoodieIframeError" style="display: none;">iFoodie 拒绝连接，请点击<a href="https://ifoodie.tw/" target="_blank">这里</a>访问。</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

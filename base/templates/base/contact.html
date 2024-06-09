@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡我們</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/contact.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'homepage' %}" class="nav-link">首頁</a>
+        <a href="{% url 'lobby' %}" class="nav-link">前往視訊</a>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>聯絡我們</h1>
+        </header>
+        <main>
+            <button id="open-line-app" class="button">打開Line應用</button>
+            <button id="add-line-bot" class="button">添加Line Bot</button>
+        </main>
+
+    </div>
+    <script>
+        document.getElementById('open-line-app').onclick = function() {
+            window.location.href = 'line://';
+        };
+
+        document.getElementById('add-line-bot').onclick = function() {
+            window.location.href = 'https://line.me/R/ti/p/@232eezxw';
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyChat 首頁</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/homepage.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div id="clock" class="nav-clock"></div>
+        <a href="{% url 'homepage' %}" class="nav-link">首頁</a>
+        <a href="{% url 'lobby' %}" class="nav-link">前往大廳</a>
+        <a href="{% url 'common_links' %}" class="nav-link">常用連結</a> <!-- 新增常用連結选项 -->
+        <a href="{% url 'contact' %}" class="nav-link">聯絡我們</a>
+    </nav>
+    <div class="container">
+        <header>
+            <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo">
+            <h1>歡迎來到 MyChat</h1>
+            <p id="weather"></p>
+        </header>
+        <main>
+            <p>這是MyChat應用程序的首頁。</p>
+        </main>
+    </div>
+    <script>
+        $(document).ready(function() {
+            // Function to update time every second
+            function updateTime() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                const timeString = `${hours}:${minutes}:${seconds}`;
+                $('#clock').text(timeString);
+            }
+
+            // Function to fetch weather data
+            function updateWeather() {
+                const apiKey = 'CWA-496DC2AD-1372-467C-B685-427FB1925230';  // 确保这里使用的是有效的API密钥
+                const apiUrl = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${apiKey}&locationName=臺中市`;
+
+                $.getJSON(apiUrl, function(data) {
+                    const locationData = data.records.location[0];
+                    const weatherElement = locationData.weatherElement;
+                    const temperature = weatherElement[4].time[0].parameter.parameterName; // 现在温度
+                    const weatherDescription = weatherElement[0].time[0].parameter.parameterName; // 天气描述
+
+                    $('#weather').text(`當前天氣: ${temperature}°C, ${weatherDescription}`);
+                }).fail(function() {
+                    $('#weather').text('無法獲取天氣信息');
+                });
+            }
+
+            // Update time every second
+            setInterval(updateTime, 1000);
+            // Update weather every 10 minutes
+            updateWeather();
+            setInterval(updateWeather, 600000);
+
+            // Initial call
+            updateTime();
+            updateWeather();
+        });
+    </script>
+</body>
+</html>
